@@ -1,5 +1,5 @@
-import ap_cluster as ap
 import os
+from clustering_module import ap 
 
 def get_reduced_networks_folders(data_folder):
     # Get a list of folders in the directory
@@ -7,18 +7,13 @@ def get_reduced_networks_folders(data_folder):
 
     return folders
 
-def create_cluster_filepath(clustering_algortihm):
-
-    # Define foldername variable
+def create_cluster_filepath(clustering_algorithm):
     foldername = "clustered_networks"
+    working_path = os.path.join(foldername, clustering_algorithm)
 
-    if not os.path.exists(foldername):
-        os.mkdir(foldername)
-        working_path = os.path.join(foldername,clustering_algortihm)
-        os.mkdir(working_path)
-        return working_path
-    else:
-        print("Folders already exist. Delete them and start again")
+    os.makedirs(working_path, exist_ok=True)
+
+    return working_path
     
 
 
@@ -31,13 +26,18 @@ def main():
 
     for clustering_algortihm in clustering_algortihms:
 
-        cluster_filepath = create_cluster_filepath(clustering_algortihm)
+        cluster_folder_path = create_cluster_filepath(clustering_algortihm)
 
         for foldername in sorted(reduced_network_foldernames):
+  
+            saving_folder_path = os.path.join(cluster_folder_path,foldername)
+            os.makedirs(saving_folder_path, exist_ok=True)
+
             reduced_networks_file_list = os.listdir(os.path.join(data_folder,foldername))
             for reduced_network_filename in sorted(reduced_networks_file_list):
                 file_path = os.path.join(data_folder,foldername,reduced_network_filename)
-                print(file_path)
-            break
+                ap.cluster_network(file_path,saving_folder_path)
+               
+  
 
 main()
