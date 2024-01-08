@@ -32,47 +32,6 @@ def copy_temp_file(filepath):
         print(f"An error occurred: {e}")
 
 
-# def save_clusters(filepath,temp_filepath,temp_filename,saving_folder_path):
-
-#     # Extract details from the filepath
-#     prefix_list = filepath.split("/")
-#     organism = prefix_list[-2].split("_")[-2]
-#     algorithm = "IMHRC"
-
-#     # Prepare the new filename for the clustered results
-#     original_name = os.path.basename(filepath)
-#     file_name, file_ext = os.path.splitext(original_name)
-#     new_filename = f"{file_name}_{organism}_{algorithm}.txt"
-
-#     cluster_tmp_path = temp_filepath.split("imhrc")[0]
-
-#     # list all txt cusltered network files
-#     cluster_folder = "imhrc\\IMHRC"
-#     # abspathclusterfolder = os.path.abspath(os.path.join(cluster_tmp_path,cluster_folder))
-#     abspathclusterfolder = os.path.abspath(cluster_tmp_path)
-#     cluster_file = cluster_folder+temp_filename
-#     file_list = [f for f in os.listdir(cluster_tmp_path) if temp_filename in f]
-
-#     clusterfolderpath = abspathclusterfolder+"/"+cluster_folder
-#     fileclusterpath = abspathclusterfolder+"/"+file_list[0]
-
-#     shutil.rmtree(clusterfolderpath)
-
-#     cluster_output = []
-#     # Open the file in read mode
-#     with open(fileclusterpath, 'r') as file:
-#         # Read each line using a loop
-#         for line in file:
-#             cluster = tuple(line.strip().split("\t"))
-#             cluster_output.append(cluster)
-
-#     saving_path = os.path.join(saving_folder_path,new_filename)
-#     with open(saving_path, 'w') as file:
-#         for cluster in cluster_output:
-#             file.write(f"{cluster}\n")
-
-
-#     os.remove(fileclusterpath)
 def save_clusters(input_filepath, temp_filepath, temp_filename, output_folder_path):
     # Extract details from the input filepath
     filepath_parts = input_filepath.split("/")
