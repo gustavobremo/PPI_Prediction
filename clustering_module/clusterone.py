@@ -18,7 +18,9 @@ def cluster_network(filepath, saving_folder_path):
     The output is saved as a text file with the clustered results.
     """
     # Define the absolute path to the ClusterONE JAR file
-    absolute_path_jar_file = os.path.join(os.path.abspath("clustering_module"), "ClusterONE-v1.0.jar")
+    absolute_path_jar_file = os.path.join(
+        os.path.abspath("clustering_module"), "ClusterONE-v1.0.jar"
+    )
 
     # Extract details from the filepath
     prefix_list = filepath.split("/")
@@ -32,21 +34,19 @@ def cluster_network(filepath, saving_folder_path):
 
     try:
         # Run the ClusterONE Java subprocess and capture the output
-        result = subprocess.run(["java", "-jar", absolute_path_jar_file, filepath], stdout=subprocess.PIPE, text=True)
+        result = subprocess.run(
+            ["java", "-jar", absolute_path_jar_file, filepath], stdout=subprocess.PIPE, text=True
+        )
         output = result.stdout.split("\n")
 
         # Define the path for saving the clustered results
         saving_path = os.path.join(saving_folder_path, new_filename)
 
         # Write the clustered results to a text file
-        with open(saving_path, 'w') as file:
+        with open(saving_path, "w") as file:
             for cluster in output:
                 if cluster:
                     tuple_cluster = str(tuple(cluster.split("\t")))
                     file.write(f"{tuple_cluster}\n")
     except subprocess.CalledProcessError as e:
         raise subprocess.CalledProcessError(f"Error occurred: {e}")
-
-
-
- 
